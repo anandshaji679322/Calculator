@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -8,10 +10,100 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
-  var uvalue;
-  var result='';
-  var temp;
+  var uvalue = '';
+  var result = '';
+  var oldv;
+  var op;
+  var temp = 0;
+  int re=0;
+
+  int operation(a) {
+    var r = 0;
+    switch (a) {
+      case 1:
+        temp *= 0;
+        result='';
+        uvalue = '';
+        break;
+      case 2:
+        temp *= -1;
+        uvalue = temp.toString();
+        break;
+      case 3:
+        break;
+      case 4:
+        oldv = temp;
+        temp = 0;
+        op = 4;
+        uvalue = '$uvalue/';
+        break;
+      case 5:
+        oldv = temp;
+        temp = 0;
+        op = 5;
+        uvalue = '$uvalue x';
+        break;
+      case 6:
+        oldv = temp;
+        temp = 0;
+        op = 6;
+        uvalue = '$uvalue -';
+        break;
+      case 7:
+        oldv = temp;
+        temp = 0;
+        op = 7;
+        uvalue = '$uvalue +';
+        break;
+    }
+    return r;
+  }
+
+  void equal(b) {
+    var r;
+    switch (b) {
+      case 4:
+        r = oldv / temp;
+        result = r.toString();
+        print(result);
+        op=0;
+        break;
+      case 5:
+        // uvalue='';
+        r = oldv * temp;
+        result = r.toString();
+        print(result);
+        op=0;
+        break;
+      case 6:
+      // uvalue='';
+        r = oldv - temp;
+        result = r.toString();
+        print(result);
+        op=0;
+        break;
+      case 7:
+        // uvalue='';
+        r = oldv + temp;
+        result = r.toString();
+        print(result);
+        op=0;
+        break;
+      case 4:
+        oldv = temp;
+        temp = 0;
+        op = 4;
+        uvalue = '$temp/';
+        op=0;
+        break;
+
+    }
+    re=1;
+  }
+
+  @override
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("ac");
+                                setState(() {
+                                  operation(1);
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -87,7 +182,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.only(left: 20.0, top: 10.0),
                             child: TextButton(
                               onPressed: () {
-                                print("+/-");
+                                setState(() {
+                                  print("+/-");
+                                  operation(2);
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -98,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.minus_slash_plus,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xff26E8C6)),
+                                    (states) => Color(0xff26E8C6)),
                               ),
                             ),
                           ),
@@ -107,6 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("%");
+                                operation(3);
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -118,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xff26E8C6),
+                                    (states) => Color(0xff26E8C6),
                                   ),
                                 ),
                               ),
@@ -129,6 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("/");
+                                operation(4);
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -139,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.divide,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xffE78388)),
+                                    (states) => Color(0xffE78388)),
                               ),
                             ),
                           ),
@@ -152,6 +252,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("7");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                      var a = 7;
+                                      temp = temp * 10 + 7;
+                                      uvalue = '$uvalue$a';
+
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -163,7 +275,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -174,6 +286,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("8");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 8;
+                                  temp = temp * 10 + 8;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -185,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -196,6 +319,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("9");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 9;
+                                  temp = temp * 10 + 9;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -207,7 +341,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -217,7 +351,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.only(left: 20.0, top: 10.0),
                             child: TextButton(
                               onPressed: () {
-                                print("x");
+                                setState(() {
+                                  operation(5);
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -228,7 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.multiply,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xffE78388)),
+                                    (states) => Color(0xffE78388)),
                               ),
                             ),
                           ),
@@ -241,6 +377,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("4");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 4;
+                                  temp = temp * 10 + 4;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -252,7 +399,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -263,6 +410,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("5");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 5;
+                                  temp = temp * 10 + 5;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -274,7 +432,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -285,6 +443,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("6");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 6;
+                                  temp = temp * 10 + 6;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -296,7 +465,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -306,7 +475,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.only(left: 20.0, top: 10.0),
                             child: TextButton(
                               onPressed: () {
-                                print("-");
+                                setState(() {
+                                  operation(6);
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -317,7 +488,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.minus,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xffE78388)),
+                                    (states) => Color(0xffE78388)),
                               ),
                             ),
                           ),
@@ -330,6 +501,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("1");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 1;
+                                  temp = temp * 10 + 1;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -341,7 +523,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -352,6 +534,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("2");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 2;
+                                  temp = temp * 10 + 2;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -363,7 +556,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -374,6 +567,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("3");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 3;
+                                  temp = temp * 10 + 3;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -385,7 +589,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -396,6 +600,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("+");
+                                operation(7);
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -406,7 +611,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.plus,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xffE78388)),
+                                    (states) => Color(0xffE78388)),
                               ),
                             ),
                           ),
@@ -429,7 +634,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.restart,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white),
+                                    (states) => Colors.white),
                               ),
                             ),
                           ),
@@ -438,6 +643,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: TextButton(
                               onPressed: () {
                                 print("0");
+                                setState(() {
+                                  if(re!=0){
+                                    temp=0;
+                                    uvalue='';
+                                    re=0;
+                                    result='';
+                                  }
+                                  var a = 0;
+                                  temp = temp * 10;
+                                  uvalue = '$uvalue$a';
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -449,7 +665,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -471,7 +687,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   color: MaterialStateColor.resolveWith(
-                                        (states) => Colors.white,
+                                    (states) => Colors.white,
                                   ),
                                 ),
                               ),
@@ -481,7 +697,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.only(left: 20.0, top: 10.0),
                             child: TextButton(
                               onPressed: () {
-                                print("=");
+                                setState(() {
+                                  print("=");
+                                  equal(op);
+                                });
                               },
                               style: ButtonStyle(
                                   fixedSize: MaterialStateProperty.all(
@@ -492,7 +711,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 CupertinoIcons.equal,
                                 size: 30.0,
                                 color: MaterialStateColor.resolveWith(
-                                        (states) => Color(0xffE78388)),
+                                    (states) => Color(0xffE78388)),
                               ),
                             ),
                           ),
